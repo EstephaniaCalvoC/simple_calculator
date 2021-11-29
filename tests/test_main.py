@@ -78,3 +78,78 @@ def test_mul_by_zero_raises_exception():
 
     with pytest.raises(ValueError):
         calculator.mul(3, 0)
+
+        
+def test_simple_average():
+    calculator = SimpleCalculator()
+    
+    result = calculator.avg([2, 5, 12, 98])
+    
+    assert result == 29.25
+
+
+def test_upper_limit_average():
+    calculator = SimpleCalculator()
+    
+    result = calculator.avg([2, 5, 12, 98], ut=90)
+    
+    assert result == calculator.avg([2, 5, 12])
+    
+    
+def test_lower_limit_average():
+    calculator = SimpleCalculator()
+    
+    result = calculator.avg([2, 5, 12, 98], lt=10)
+    
+    assert result == 55
+    
+    
+def test_upper_limit_average_extreme():
+    calculator = SimpleCalculator()
+    
+    result = calculator.avg([2, 5, 12, 98], ut=98)
+    
+    assert result == 29.25
+    
+    
+def test_lower_limit_average_extreme():
+    calculator = SimpleCalculator()
+    
+    result = calculator.avg([2, 5, 12, 98], lt=5)
+    
+    assert result == calculator.avg([5, 12, 98])
+    
+    
+def test_average_empty_array():
+    calculator = SimpleCalculator()
+    result = calculator.avg([])
+    
+    assert result == 0
+    
+    
+def test_average_empty_array_after_outlier_removal():
+    calculator = SimpleCalculator()
+    result = calculator.avg([12, 98], lt=15, ut=90)
+    
+    assert result == 0
+    
+def test_outlier_removal_empty_array():
+    calculator = SimpleCalculator()
+    result = calculator.avg([], lt=15, ut=90)
+    
+    assert result == 0
+    
+def test_upper_limit_zero():
+    calculator = SimpleCalculator()
+
+    result = calculator.avg([-1, 0, 1], ut=0)
+
+    assert result == -0.5
+    
+    
+def test_lower_limit_zero():
+    calculator = SimpleCalculator()
+
+    result = calculator.avg([-1, 0, 1], lt=0)
+
+    assert result == 0.5

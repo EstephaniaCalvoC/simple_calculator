@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 from functools import reduce
-
-
+        
 class SimpleCalculator:
     def add(self, *args):
         return sum(args)
@@ -16,3 +15,9 @@ class SimpleCalculator:
     
     def div(self, a, b):
         return a / b if b else float('inf')
+    
+    def avg(self, array, ut=None, lt=None):
+        array = array if ut is None else [n for n in array if n <= ut]
+        array = array if lt is None else list(filter(lambda n: True if n >= lt else False, array))
+
+        return sum(array) / len(array) if array else 0
